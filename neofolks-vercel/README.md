@@ -1,87 +1,52 @@
-# Tech Leadership Portfolio
+# NeoFolks
 
-A premium, production-quality portfolio showcasing senior frontend engineering and technical leadership expertise. Built with modern web technologies and optimized for performance, accessibility, and user experience.
+The official site for **NeoFolks**, the technology community at Navrachana University (NUV) — built with React, TypeScript, Tailwind CSS, and Vite.
 
 ## 🚀 Project Overview
 
-This portfolio demonstrates technical leadership through:
-- **Team Management**: Experience leading 15+ engineers and growing high-performing teams
-- **Product Innovation**: 300% growth metrics and scalable solutions serving millions
-- **Technical Excellence**: Modern architecture with React, TypeScript, and advanced design systems
-- **Leadership Philosophy**: Building inclusive environments where innovation thrives
+The site covers:
+- **Home** — full-viewport hero, an animated orbital "tech focus" timeline, a scrolling testimonials wall, and a partners/sponsors strip
+- **About** — mission & vision, community highlights, NUV connection, focus areas, and core values
+- **Team** — an offset photo showcase of the leadership team
+- **Events** — past events on a curved, scroll-animated timeline
+- **Contact** — a contact form plus direct contact methods
+- **Join** — a full membership application form
 
 ## 🛠 Technology Stack
 
-### Frontend
-- **React 18** with TypeScript for type safety and modern development
-- **Vite** for lightning-fast development and optimized builds
-- **Tailwind CSS** with custom design system and component variants
-- **Shadcn/UI** components with premium customizations
+- **React 18** + **TypeScript**
+- **Vite** for dev server and production builds
+- **Tailwind CSS** with a custom dark, purple-accented design system
+- **shadcn/ui** (Radix primitives) for form controls, dialogs, toasts, etc.
+- **motion** (Framer Motion successor) for scroll-triggered and orbital animations
+- **lucide-react** for icons
+- **react-router-dom** for client-side routing
+- **react-hook-form** + **zod** available for form handling/validation
 
-### Design System
-- **Color Palette**: Premium purple theme (#4B2E83, #6A4ED6, #0F0B16, #17121B, #E8E6FF)
-- **Typography**: Inter for UI + Playfair Display for headings
-- **Animations**: Custom keyframes with glassmorphism effects
-- **Responsive**: Mobile-first design with 8px baseline grid
+## 📱 Responsive Design
 
-### Features
-- Interactive team showcase with modal profiles
-- Filterable project portfolio with detailed case studies
-- Working contact form with validation and spam protection
-- Smooth scroll navigation and micro-interactions
-- Comprehensive SEO optimization
+The site is fully responsive from small phones (~360px) through desktop. Key points if you're extending it:
+
+- Global safety nets live in `src/index.css`: `overflow-x: hidden` on `html`/`body` and `img { max-width: 100% }` guard against any stray fixed-width element causing horizontal scroll.
+- Most layout is done with inline styles plus a scoped `<style>` block per section containing the mobile overrides (search for `@media` in each file). This mirrors the pattern already used in `Navigation.tsx` and `curved-timeline.tsx`.
+- Notable responsive behaviors:
+  - **Hero title** (`pages/Index.tsx`) scales fluidly with `clamp()` instead of a fixed pixel size, and stacks the wordmark above the logo below 520px.
+  - **Tech Focus orbital timeline** (`components/ui/radial-orbital-timeline.tsx`) measures its own container with a `ResizeObserver` and shrinks the orbit radius so nodes never clip off-screen on narrow viewports.
+  - **Team page** (`pages/Team.tsx`) collapses its offset multi-column photo layout into a centered, wrapping layout below 800px.
+  - **Footer**, **TrustedBySection**, and the **Join**/**Contact** form grids all collapse from multi-column to single/double column on small screens.
+  - **Events timeline** (`components/ui/curved-timeline.tsx`) already ships two layouts: a curved serpentine path on `md:` and up, and a simple stacked list below that.
+- When adding a new section, follow the existing pattern: build desktop-first with inline styles, add a `className` hook for anything that needs to change on mobile, and drop the media query in a `<style>` tag scoped to that section.
 
 ## 📦 Getting Started
 
-## HomePage
-
-<img width="2472" height="1434" alt="image" src="https://github.com/user-attachments/assets/f9e6c37b-c4fa-4e1b-ab1e-8dd2faff547d" />
-<img width="2473" height="1419" alt="image" src="https://github.com/user-attachments/assets/500f87fd-5e92-445e-91ba-a446e9052460" />
-
-## About Us Page
-
-<img width="2472" height="1402" alt="image" src="https://github.com/user-attachments/assets/1961da33-cce0-4c69-8bcc-aa3a0704da1c" />
-
-<img width="2453" height="963" alt="image" src="https://github.com/user-attachments/assets/c1d398e8-5a39-49f9-9632-5f3dc10b10c7" />
-
-<img width="2472" height="1402" alt="image" src="https://github.com/user-attachments/assets/706fe304-9c3d-4723-acad-7edae9a242c5" />
-
-<img width="2449" height="1418" alt="image" src="https://github.com/user-attachments/assets/19da0ec6-b7ef-4cd4-8af4-54aebaca6544" />
-
-## Team 
-
-<img width="1573" height="1228" alt="image" src="https://github.com/user-attachments/assets/5cc26c3c-9916-4c19-bf1a-f846208dcade" />
-
-# Events 
-
-
-<img width="1448" height="1375" alt="image" src="https://github.com/user-attachments/assets/2a08e250-2b30-4d9e-b186-9dbc6e525722" />
-
-<img width="1332" height="1426" alt="image" src="https://github.com/user-attachments/assets/f61acf16-b92f-42fb-a22b-f0c373b9f17f" />
-
-
-## Contact Us Page
-
-<img width="1116" height="1021" alt="image" src="https://github.com/user-attachments/assets/54f896e7-0fca-4aaa-b34b-9ad646ee7460" />
-
-## Join US PAge
-
-<img width="777" height="1373" alt="image" src="https://github.com/user-attachments/assets/a1d77f3e-91ab-4f7c-8522-642a21fe048e" />
-
-
-
-
-
-
 ### Prerequisites
 - Node.js 18+ and npm
-- Modern web browser
 
 ### Installation
 ```bash
 # Clone the repository
 git clone <repository-url>
-cd tech-leadership-portfolio
+cd neofolks-vercel
 
 # Install dependencies
 npm install
@@ -99,143 +64,72 @@ npm run build
 npm run preview
 ```
 
-## 🏗 Architecture & Component Structure
+### Linting
+```bash
+npm run lint
+```
 
-### Component Hierarchy
+## 🏗 Project Structure
+
 ```
 src/
+├── assets/
+│   ├── events/        # Event photos
+│   └── team/           # Team member photos
 ├── components/
-│   ├── ui/           # Reusable UI components (buttons, inputs, etc.)
-│   ├── Hero.tsx      # Landing hero section
-│   ├── About.tsx     # Leadership philosophy and metrics
-│   ├── Team.tsx      # Interactive team showcase
-│   ├── Projects.tsx  # Portfolio with modal details
-│   ├── Contact.tsx   # Contact form and information
-│   └── Footer.tsx    # Site footer with navigation
+│   ├── ui/              # shadcn/ui components + custom widgets
+│   │   ├── curved-timeline.tsx        # Events page scroll timeline
+│   │   ├── radial-orbital-timeline.tsx # Home page tech-focus orbit
+│   │   ├── testimonials-columns.tsx   # Auto-scrolling testimonial columns
+│   │   └── ...
+│   ├── About.tsx
+│   ├── Contact.tsx
+│   ├── Footer.tsx
+│   ├── Navigation.tsx   # Fixed nav with mobile hamburger menu
+│   ├── ParallaxSection.tsx  # Scroll-in fade/slide wrapper
+│   ├── Team.tsx
+│   └── TrustedBySection.tsx
 ├── pages/
-│   └── Index.tsx     # Main page composition
-├── hooks/            # Custom React hooks
-└── lib/              # Utility functions
+│   ├── Index.tsx        # Home
+│   ├── About.tsx
+│   ├── Team.tsx
+│   ├── Events.tsx
+│   ├── Contact.tsx
+│   ├── Join.tsx
+│   └── NotFound.tsx
+├── hooks/
+│   └── use-toast.ts
+├── lib/
+│   └── utils.ts
+└── index.css            # Design tokens, base styles, Tailwind layers
 ```
 
-### Design System Implementation
-- **Colors**: HSL-based semantic tokens defined in `src/index.css`
-- **Components**: Variant-based system using class-variance-authority
-- **Animations**: Custom keyframes for floating, glow, and gradient effects
-- **Typography**: Responsive scales with proper line heights
+## 🎨 Design System
 
-## 🎨 UI/UX Decisions
-
-### Visual Design
-- **Glassmorphism**: Subtle transparency and blur effects for modern appeal
-- **Gradients**: Strategic use of purple gradients for brand consistency  
-- **Spacing**: 8px baseline grid for consistent vertical rhythm
-- **Hover States**: Sophisticated animations that enhance interactivity
-
-### User Experience
-- **Navigation**: Smooth scrolling between sections with visual feedback
-- **Accessibility**: WCAG AA compliant with proper focus management
-- **Performance**: Optimized images, lazy loading, and efficient animations
-- **Mobile**: Progressive enhancement from mobile to desktop
-
-### Interaction Design
-- **Micro-animations**: Subtle feedback for user actions
-- **Modal System**: Detailed project and team member information
-- **Form UX**: Real-time validation with clear error states
-- **Loading States**: Proper feedback during form submissions
-
-## 🔧 Development Guidelines
-
-### Code Quality
-- TypeScript for type safety and better developer experience
-- ESLint and Prettier for consistent code formatting
-- Component-based architecture with clear separation of concerns
-- Custom hooks for reusable logic
-
-### Performance Optimization
-- Lazy loading for images and heavy components
-- Efficient re-renders with proper React patterns
-- Optimized bundle size with tree shaking
-- Fast font loading with preconnect hints
-
-### Accessibility Standards
-- Semantic HTML with proper heading hierarchy
-- ARIA labels for interactive elements
-- Keyboard navigation support
-- Color contrast compliance (WCAG AA)
-
-## 📊 Performance Metrics
-
-### Lighthouse Scores (Target)
-- **Performance**: 95+
-- **Accessibility**: 100
-- **Best Practices**: 95+
-- **SEO**: 100
-
-### Key Features
-- Mobile-first responsive design
-- Sub-second paint times
-- Smooth 60fps animations
-- Comprehensive error handling
+- **Palette**: near-black background (`#000000`) with a purple accent (`rgba(168,85,247,*)`), white text at varying opacity for hierarchy
+- **Typography**: `Gambarino` (serif, display) for headings, `Inter` for UI text and body copy
+- **Motion**: scroll-triggered fade/slide-in via `ParallaxSection` and `motion`'s `whileInView`, plus a couple of dedicated animated components (orbital timeline, curved timeline, scrolling testimonials)
 
 ## 🚀 Deployment
 
-The site is optimized for deployment on modern hosting platforms:
+Configured for **Vercel** out of the box (`vercel.json` rewrites all routes to `index.html` for client-side routing). Any static host that supports SPA rewrites (Netlify, Cloudflare Pages, etc.) will also work.
 
-### Recommended Platforms
-- **Vercel**: Optimal for React applications with automatic deployments
-- **Netlify**: Great for static sites with form handling
-- **AWS Amplify**: Enterprise-grade hosting with CI/CD
+## 🧪 Manual QA Checklist
 
-### Build Configuration
-```bash
-# Environment variables (if needed)
-VITE_API_URL=your-api-endpoint
-VITE_CONTACT_ENDPOINT=your-contact-form-endpoint
-```
-
-## 🧪 Testing Checklist
-
-### Manual QA Steps
-1. **Hero Section**: Verify smooth scrolling and CTA functionality
-2. **About**: Check leadership metrics and hover animations
-3. **Team**: Test modal interactions and contact links
-4. **Projects**: Validate filtering and project detail modals
-5. **Contact**: Test form validation and submission states
-6. **Footer**: Verify all navigation and social links
-
-### Cross-Device Testing
-- Mobile (iOS Safari, Android Chrome)
-- Tablet (iPad, Android tablets)
-- Desktop (Chrome, Firefox, Safari, Edge)
-
-### Accessibility Testing
-- Screen reader compatibility (NVDA, JAWS, VoiceOver)
-- Keyboard-only navigation
-- Color contrast validation
-- Focus management verification
-
-## 📈 Business Impact
-
-This portfolio demonstrates:
-- **Technical Leadership**: Modern development practices and architecture decisions
-- **Team Management**: Structured team profiles showcasing collaborative leadership
-- **Product Thinking**: Project showcases with measurable business impact
-- **Innovation**: Cutting-edge design and interaction patterns
+- **Home**: hero readable and centered at mobile widths; orbital timeline nodes stay inside the viewport; testimonial columns scroll without overflowing
+- **Team**: photo layout collapses cleanly and stays centered below ~800px
+- **Contact / Join**: form fields stack to a single column on small screens; all inputs remain reachable and legible
+- **Navigation**: hamburger menu opens/closes correctly below 768px; active link state is visible
+- **Cross-browser**: Chrome, Safari (iOS), Firefox
+- **Cross-device**: phone (~360–430px), tablet (~768–1024px), desktop (1280px+)
 
 ## 🤝 Contributing
 
-For improvements or modifications:
-1. Follow the established component structure
-2. Maintain the design system consistency
-3. Ensure accessibility standards compliance
-4. Test across multiple devices and browsers
-5. Update documentation for significant changes
+1. Keep the existing dark, purple-accented visual language consistent across new sections.
+2. Any new layout should be checked at ~360px, ~768px, and ~1280px before merging.
+3. Prefer the `className` + scoped `<style>` media-query pattern already used throughout the codebase over introducing a new styling approach.
+4. Run `npm run build` before opening a PR to catch type errors.
 
 ## 📄 License
 
-This project is proprietary and confidential. All rights reserved.
-
----
-
-*Built with precision, designed for impact, optimized for excellence.*
+All rights reserved, NeoFolks — Navrachana University.
